@@ -1,0 +1,26 @@
+1,PSG,Liverpool,2,1,16-09-2026
+2,Barcelona,Real Madrid,1,1,16-09-2026
+3,Man City,PSG,3,0,23-09-2026
+4,Liverpool,Barcelona,2,2,23-09-2026
+5,Real Madrid,Man City,1,2,30-09-2026
+6,PSG,Barcelona,1,0,30-09-2026
+7,Liverpool,Real Madrid,0,1,07-10-2026
+8,Man City,Barcelona,2,1,07-10-2026
+5,Liverpool,PSG,1,1,08-10-2026
+9,Real Madrid,PSG,3,1,14-10-2026
+10,Liverpool,Man City,1,1,14-10-2026
+11,Liverpool,PSG,3,0,21-10-2026
+12,Real Madrid,Barcelona,2,3,21-10-2026
+13,PSG,Man City,1,1,28-10-2026
+14,Barcelona,Liverpool,1,0,28-10-2026
+15,Man City,Real Madrid,2,2,04-11-2026
+16,Barcelona,PSG,2,2,04-11-2026
+23,Real Madrid,Real Madrid,1,1,05-11-2026
+17,Real Madrid,Liverpool,1,0,11-11-2026
+18,Barcelona,Man City,0,1,11-11-2026
+19,PSG,Real Madrid,2,0,18-11-2026
+20,Man City,Liverpool,3,2,18-11-2026
+24,PSG,Barcelona,2,1,30-02-2026
+25,Liverpool,PSG,2,1,16-10-2026
+26,Barcelona,Real Madrid,2,2,30-10-2026
+27,Man City,PSG,1,1,16-10-2026
