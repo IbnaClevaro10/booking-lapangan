@@ -1,6 +1,5 @@
 #include "../include/pertandingan.h"
 
-#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -8,21 +7,27 @@
 using namespace std;
 
 const string NAMA_FILE = "data/pertandingan.txt";
-const vector<string> DAFTAR_TIM = {
+string DAFTAR_TIM[5] = {
 	"PSG", "Liverpool", "Barcelona", "Real Madrid", "Man City"
 };
 
 vector<Pertandingan> daftar;
 
+int ubahKeAngka(string teks) {
+	int angka = 0;
+	int jumlahHuruf = teks.length();
+	for (int i = 0; i < jumlahHuruf; i++) {
+		angka = angka * 10 + (teks[i] - '0');
+	}
+	return angka;
+}
+
 string pilihTim(string pesan) {
-	string tim[5] = {
-		"PSG", "Liverpool", "Barcelona", "Real Madrid", "Man City"
-	};
 	int pilihan;
 
 	cout << pesan << '\n';
 	for (int i = 0; i < 5; i++) {
-		cout << i + 1 << ". " << tim[i] << '\n';
+		cout << i + 1 << ". " << DAFTAR_TIM[i] << '\n';
 	}
 
 	do {
@@ -33,7 +38,7 @@ string pilihTim(string pesan) {
 		}
 	} while (pilihan < 1 || pilihan > 5);
 
-	return tim[pilihan - 1];
+	return DAFTAR_TIM[pilihan - 1];
 }
 
 Pertandingan isiPertandingan(int id) {
@@ -75,14 +80,10 @@ void bacaFile() {
 			continue;
 		}
 
-		try {
-			daftar.push_back({
-				stoi(kolom[0]), kolom[1], kolom[2],
-				stoi(kolom[3]), stoi(kolom[4]), kolom[5]
-			});
-		} catch (const exception&) {
-			continue;
-		}
+		daftar.push_back({
+			ubahKeAngka(kolom[0]), kolom[1], kolom[2],
+			ubahKeAngka(kolom[3]), ubahKeAngka(kolom[4]), kolom[5]
+		});
 	}
 }
 
@@ -103,7 +104,9 @@ void simpanFile() {
 int idBaru() {
 	int id = 1;
 	for (Pertandingan pertandingan : daftar) {
-		id = max(id, pertandingan.id + 1);
+		if (pertandingan.id >= id) {
+			id = pertandingan.id + 1;
+		}
 	}
 	return id;
 }
@@ -118,7 +121,8 @@ void editPertandingan() {
 	int id;
 	cout << "Masukkan ID pertandingan yang diedit: ";
 	cin >> id;
-	for (int i = 0; i < daftar.size(); i++) {
+	int jumlahPertandingan = daftar.size();
+	for (int i = 0; i < jumlahPertandingan; i++) {
 		if (daftar[i].id == id) {
 			daftar[i] = isiPertandingan(id);
 			simpanFile();
@@ -133,7 +137,8 @@ void hapusPertandingan() {
 	int id;
 	cout << "Masukkan ID pertandingan yang dihapus: ";
 	cin >> id;
-	for (int i = 0; i < daftar.size(); i++) {
+	int jumlahPertandingan = daftar.size();
+	for (int i = 0; i < jumlahPertandingan; i++) {
 		if (daftar[i].id == id) {
 			daftar.erase(daftar.begin() + i);
 			simpanFile();
@@ -145,20 +150,24 @@ void hapusPertandingan() {
 }
 
 void cariPertandingan() {
-	string kataKunci;
-	cout << "Masukkan nama tim atau tanggal: ";
-	getline(cin, kataKunci);
+	int id;
+	cout << "Masukkan ID pertandingan: ";
+	cin >> id;
 
-	for (Pertandingan pertandingan : daftar) {
-		if (pertandingan.timKandang.find(kataKunci) != string::npos ||
-			pertandingan.timTandang.find(kataKunci) != string::npos ||
-			pertandingan.tanggal.find(kataKunci) != string::npos) {
-			cout << pertandingan.id << ". " << pertandingan.timKandang
-				 << " vs " << pertandingan.timTandang << " "
-				 << pertandingan.skorKandang << "-" << pertandingan.skorTandang
-				 << " " << pertandingan.tanggal << '\n';
+	int jumlahPertandingan = daftar.size();
+	for (int i = 0; i < jumlahPertandingan; i++) {
+		if (daftar[i].id == id) {
+			cout << "Pertandingan ditemukan.\n";
+			cout << "Tim: " << daftar[i].timKandang << " vs "
+				 << daftar[i].timTandang << endl;
+			cout << "Skor: " << daftar[i].skorKandang << "-"
+				 << daftar[i].skorTandang << endl;
+			cout << "Tanggal: " << daftar[i].tanggal << endl;
+			return;
 		}
 	}
+
+	cout << "Pertandingan tidak ditemukan.\n";
 }
 
 vector<KlasemenTim> buatKlasemen() {
@@ -170,8 +179,9 @@ vector<KlasemenTim> buatKlasemen() {
 	for (Pertandingan pertandingan : daftar) {
 		int kandang = -1;
 		int tandang = -1;
+		int jumlahTim = klasemen.size();
 
-		for (int i = 0; i < klasemen.size(); i++) {
+		for (int i = 0; i < jumlahTim; i++) {
 			if (klasemen[i].nama == pertandingan.timKandang) kandang = i;
 			if (klasemen[i].nama == pertandingan.timTandang) tandang = i;
 		}
@@ -201,13 +211,24 @@ vector<KlasemenTim> buatKlasemen() {
 		}
 	}
 
-	sort(klasemen.begin(), klasemen.end(), [](KlasemenTim kiri, KlasemenTim kanan) {
-		if (kiri.poin != kanan.poin) return kiri.poin > kanan.poin;
-		if (kiri.selisihGol() != kanan.selisihGol()) {
-			return kiri.selisihGol() > kanan.selisihGol();
+	int jumlahKlasemen = klasemen.size();
+	for (int i = 0; i < jumlahKlasemen - 1; i++) {
+		for (int j = 0; j < jumlahKlasemen - i - 1; j++) {
+			bool tukar = false;
+			if (klasemen[j].poin < klasemen[j + 1].poin) tukar = true;
+			else if (klasemen[j].poin == klasemen[j + 1].poin &&
+				klasemen[j].selisihGol() < klasemen[j + 1].selisihGol()) tukar = true;
+			else if (klasemen[j].poin == klasemen[j + 1].poin &&
+				klasemen[j].selisihGol() == klasemen[j + 1].selisihGol() &&
+				klasemen[j].memasukkan < klasemen[j + 1].memasukkan) tukar = true;
+
+			if (tukar) {
+				KlasemenTim sementara = klasemen[j];
+				klasemen[j] = klasemen[j + 1];
+				klasemen[j + 1] = sementara;
+			}
 		}
-		return kiri.memasukkan > kanan.memasukkan;
-	});
+	}
 
 	return klasemen;
 }

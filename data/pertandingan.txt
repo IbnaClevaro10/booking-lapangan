@@ -1,5 +1,4 @@
-1,Liverpool,Barcelona,3,6,20-05-2007
-2,Barcelona,Real Madrid,1,1,16-09-2026
+1,PSG,Liverpool,2,2,20-05-2019
 3,Man City,PSG,3,0,23-09-2026
 4,Liverpool,Barcelona,2,2,23-09-2026
 5,Real Madrid,Man City,1,2,30-09-2026
@@ -24,3 +23,6 @@
 25,Liverpool,PSG,2,1,16-10-2026
 26,Barcelona,Real Madrid,2,2,30-10-2026
 27,Man City,PSG,1,1,16-10-2026
+28,Liverpool,Man City,2,1,20-05-2007
+29,PSG,Man City,2,0,19-10-2026
+30,Barcelona,PSG,2,1,20-05-2007

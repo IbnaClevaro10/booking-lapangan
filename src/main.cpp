@@ -11,15 +11,17 @@ void tampilkanPertandingan() {
 	}
 
 	cout << "\nDAFTAR PERTANDINGAN\n";
+	cout << "ID\tKANDANG\t\tTANDANG\t\tSKOR\tTANGGAL\n";
+	cout << "------------------------------------------------------------\n";
 
-	for (int i = 0; i < daftar.size(); i++) {
-		cout << "\nID: " << daftar[i].id << endl;
-		cout << "Tim kandang: " << daftar[i].timKandang << endl;
-		cout << "Tim tandang: " << daftar[i].timTandang << endl;
-		cout << "Skor: " << daftar[i].skorKandang << "-"
-			 << daftar[i].skorTandang << endl;
-		cout << "Tanggal: " << daftar[i].tanggal << endl;
-		cout << "-------------------------\n";
+	int jumlahPertandingan = daftar.size();
+	for (int i = 0; i < jumlahPertandingan; i++) {
+		cout << daftar[i].id << "\t"
+			 << daftar[i].timKandang << "\t\t"
+			 << daftar[i].timTandang << "\t\t"
+			 << daftar[i].skorKandang << "-"
+			 << daftar[i].skorTandang << "\t"
+			 << daftar[i].tanggal << endl;
 	}
 }
 
@@ -27,19 +29,21 @@ void tampilkanKlasemen() {
 	vector<KlasemenTim> klasemen = buatKlasemen();
 
 	cout << "\nKLASEMEN\n";
+	cout << "NO\tTIM\t\tMAIN\tMENANG\tSERI\tKALAH\tGM\tGK\tSG\tPOIN\n";
+	cout << "------------------------------------------------------------------\n";
 
-	for (int i = 0; i < klasemen.size(); i++) {
-		cout << "\nPeringkat: " << i + 1 << endl;
-		cout << "Tim: " << klasemen[i].nama << endl;
-		cout << "Main: " << klasemen[i].main << endl;
-		cout << "Menang: " << klasemen[i].menang << endl;
-		cout << "Seri: " << klasemen[i].seri << endl;
-		cout << "Kalah: " << klasemen[i].kalah << endl;
-		cout << "Gol memasukkan: " << klasemen[i].memasukkan << endl;
-		cout << "Gol kebobolan: " << klasemen[i].kebobolan << endl;
-		cout << "Selisih gol: " << klasemen[i].selisihGol() << endl;
-		cout << "Poin: " << klasemen[i].poin << endl;
-		cout << "-------------------------\n";
+	int jumlahTim = klasemen.size();
+	for (int i = 0; i < jumlahTim; i++) {
+		cout << i + 1 << "\t"
+			 << klasemen[i].nama << "\t\t"
+			 << klasemen[i].main << "\t"
+			 << klasemen[i].menang << "\t"
+			 << klasemen[i].seri << "\t"
+			 << klasemen[i].kalah << "\t"
+			 << klasemen[i].memasukkan << "\t"
+			 << klasemen[i].kebobolan << "\t"
+			 << klasemen[i].selisihGol() << "\t"
+			 << klasemen[i].poin << endl;
 	}
 }
 
@@ -57,6 +61,7 @@ void menuUtama() {
 
 		cout << "Pilih menu: ";
 		cin >> pilihan;
+		cin.ignore(1000, '\n');
 		switch (pilihan) {
 			case 1: tampilkanPertandingan(); break;
 			case 2: tambahPertandingan(); break;
