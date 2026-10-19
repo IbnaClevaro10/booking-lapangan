@@ -9,6 +9,7 @@ OBJECTS := $(SOURCES:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 HEADERS := $(wildcard include/*.h)
 
 .PHONY: all run clean
+ji
 
 all: $(TARGET)
 
