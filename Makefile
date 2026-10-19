@@ -4,6 +4,7 @@ TARGET := ucl
 SOURCES := src/main.cpp src/pertandingan.cpp
 
 .PHONY: all run clean
+ji
 
 all: $(TARGET)
 
