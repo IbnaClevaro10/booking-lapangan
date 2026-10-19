@@ -25,9 +25,11 @@ struct KlasemenTim {
 	int kebobolan{};
 	int poin{};
 
-	int selisihGol() const { return memasukkan - kebobolan; }
+	int selisihGol() {
+		return memasukkan - kebobolan;
+	}
 };
 
-using DaftarPertandingan = vector<Pertandingan>;
+extern vector<Pertandingan> daftar;
 
 #endif
