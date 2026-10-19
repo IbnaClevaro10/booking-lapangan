@@ -13,15 +13,7 @@ string DAFTAR_TIM[5] = {
 
 vector<Pertandingan> daftar;
 
-int ubahKeAngka(string teks) {
-	int angka = 0;
-	int jumlahHuruf = teks.length();
-	for (int i = 0; i < jumlahHuruf; i++) {
-		angka = angka * 10 + (teks[i] - '0');
-	}
-	return angka;
-}
-
+// Daftar Tim
 string pilihTim(string pesan) {
 	int pilihan;
 
@@ -41,6 +33,9 @@ string pilihTim(string pesan) {
 	return DAFTAR_TIM[pilihan - 1];
 }
 
+// End Daftar Tim
+
+// Add pertandingan
 Pertandingan isiPertandingan(int id) {
 	Pertandingan pertandingan;
 	pertandingan.id = id;
@@ -63,6 +58,8 @@ Pertandingan isiPertandingan(int id) {
 	return pertandingan;
 }
 
+
+
 void bacaFile() {
 	ifstream file(NAMA_FILE);
 	string baris;
@@ -81,8 +78,8 @@ void bacaFile() {
 		}
 
 		daftar.push_back({
-			ubahKeAngka(kolom[0]), kolom[1], kolom[2],
-			ubahKeAngka(kolom[3]), ubahKeAngka(kolom[4]), kolom[5]
+			stoi(kolom[0]), kolom[1], kolom[2],
+			stoi(kolom[3]), stoi(kolom[4]), kolom[5]
 		});
 	}
 }
@@ -111,12 +108,15 @@ int idBaru() {
 	return id;
 }
 
+
 void tambahPertandingan() {
 	daftar.push_back(isiPertandingan(idBaru()));
 	simpanFile();
 	cout << "Pertandingan berhasil ditambahkan.\n";
 }
 
+// End Add pertandingan
+// Edit pertandingan
 void editPertandingan() {
 	int id;
 	cout << "Masukkan ID pertandingan yang diedit: ";
@@ -133,6 +133,8 @@ void editPertandingan() {
 	cout << "ID pertandingan tidak ditemukan.\n";
 }
 
+// End Edit pertandingan
+// Delete pertandingan
 void hapusPertandingan() {
 	int id;
 	cout << "Masukkan ID pertandingan yang dihapus: ";
@@ -149,6 +151,9 @@ void hapusPertandingan() {
 	cout << "ID pertandingan tidak ditemukan.\n";
 }
 
+// End Delete pertandingan
+
+// Read pertandingan
 void cariPertandingan() {
 	int id;
 	cout << "Masukkan ID pertandingan: ";
@@ -169,11 +174,13 @@ void cariPertandingan() {
 
 	cout << "Pertandingan tidak ditemukan.\n";
 }
+// End Read pertandingan
 
+// Klasemen
 vector<KlasemenTim> buatKlasemen() {
 	vector<KlasemenTim> klasemen;
-	for (string nama : DAFTAR_TIM) {
-		klasemen.push_back({nama});
+	for (int i = 0; i < 5; i++) {
+		klasemen.push_back({DAFTAR_TIM[i]});
 	}
 
 	for (Pertandingan pertandingan : daftar) {

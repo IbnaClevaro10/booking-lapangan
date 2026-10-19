@@ -50,7 +50,7 @@ void tampilkanKlasemen() {
 void menuUtama() {
 	int pilihan;
 	do {
-		cout << "\n===== UCL MINI LEAGUE =====\n"
+		cout << "\n===== UCL GROUP LEAGUE =====\n"
 			 << "1. Tampilkan pertandingan\n"
 			 << "2. Tambah pertandingan\n"
 			 << "3. Edit pertandingan\n"
